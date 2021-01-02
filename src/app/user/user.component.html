@@ -1,0 +1,97 @@
+<div class="container">  
+  
+    <mat-card>  
+      <mat-toolbar>  
+        <div style="color:black;text-align: right; margin: 0 auto;">  
+          Basic single screen CRUD Application
+        </div>    
+      </mat-toolbar>  
+     
+        <p *ngIf="dataSaved" style="color:rgb(0, 128, 0);font-size:20px;font-weight:bold" Class="success" align="left">  
+          {{massage}}  
+        </p>  
+     
+    <br><br>  
+      <mat-card-content>  
+        <form [formGroup]="userForm"(ngSubmit)="onFormSubmit()">  
+                <table style=" margin: 0 auto;">  
+                  <tr>  
+                    <td class="tbl1">  
+                      <mat-form-field class="demo-full-width">  
+                        <input formControlName="Name" matTooltip="Enter User Name" matInput placeholder="User Name" matNativeControl required>  
+                      </mat-form-field>  
+                      <mat-error>  
+                        <span *ngIf="!userForm.get('Name').value && userForm.get('Name').touched"></span>  
+                      </mat-error>  
+                    </td>  
+                    <td class="tbl1">  
+                      <mat-form-field class="demo-full-width">  
+                        <input matInput [matDatepicker]="picker"matTooltip="Enter Date Of Birth" formControlName="DateOfBirth"placeholder="Choose Date Of Birth" matNativeControl required>  
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>  
+                        <mat-datepicker #picker></mat-datepicker>  
+                      </mat-form-field>  
+                      <mat-error>  
+                        <span *ngIf="!userForm.get('DateOfBirth').value && userForm.get('DateOfBirth').touched"></span>  
+                      </mat-error>  
+                    </td>                     
+                  </tr>  
+                  <tr>                       
+                    <td class="tbl1">  
+                      <mat-form-field class="demo-full-width">  
+                        <input matTooltip="Enter Designation"formControlName="Designation" matInput placeholder="Designation" matNativeControl required>  
+                      </mat-form-field>  
+                      <mat-error>  
+                        <span *ngIf="!userForm.get('Designation').value && userForm.get('Designation').touched"></span>  
+                      </mat-error>  
+                    </td>                    
+                    <td class="tbl1">                     
+<mat-form-field appearance="fill">
+  <mat-label>Skill</mat-label>
+  <select formControlName="Skills" matNativeControl required>
+    <option value="CS">C#</option>
+    <option value="Java">Java</option>
+    <option value="Ng">Angular</option>
+    <option value="Azure">Azure</option>
+  </select>
+</mat-form-field>
+                    </td> 
+                    <td>
+                                         
+                    </td>
+                  </tr>  
+                  <tr>  
+                    <td></td>  
+                    <td  class="content-center">  
+                      <button type="submit" mat-raised-button color="accent"matTooltip="Click Submit Button"[disabled]="!userForm.valid">Submit</button>      
+                      <button type="reset" mat-raised-button color="accent"matTooltip="Click Reset Button" (click)="resetForm()">Reset</button>  
+                    </td>                     
+                  </tr>  
+                </table>  
+    <br><br>  
+        <table class="table table table-striped">  
+              <tr ngclass="btn-primary">  
+                <th class="tbl2">User Name</th>  
+                <th class="tbl2">Date Of Birth</th>  
+                <th class="tbl2">Designation</th>  
+                <th class="tbl2">Skills</th>                  
+                <th class="tbl2">Edit</th>  
+                <th class="tbl2">Delete</th>  
+              </tr>  
+              <tr *ngFor="let user of allUsers | async">  
+                <td class="tbl2">{{user.Name}}</td>  
+                <td class="tbl2">{{user.DateOfBirth }}</td>  
+                <td class="tbl2">{{user.Designation}}</td>                  
+                <td class="tbl2">{{user.Skills}}</td>                  
+                <td class="tbl2">  
+                  <button type="button" class="btn btn-info"matTooltip="Click Edit Button"(click)="loadUserToEdit(user.Id)">Edit</button>  
+                </td>  
+                <td class="tbl2">  
+                  <button type="button" class="btn btn-danger"matTooltip="Click Delete Button"(click)="deleteUser(user.Id)">Delete</button>  
+                </td>  
+              </tr>  
+      
+            </table>   
+        </form>  
+      </mat-card-content>  
+    </mat-card>        
+    </div>
